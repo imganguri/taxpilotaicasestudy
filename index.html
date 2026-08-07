@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TaxPilot AI — a clickable frontend prototype for an AI-powered client and CPA tax platform." />
+  <title>TaxPilot AI — Case Study Prototype</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="brand" data-action="navigate" data-view="dashboard">
+        <div class="brand-mark">T</div>
+        <div>
+          <strong>TaxPilot AI</strong>
+          <span>Trust every number</span>
+        </div>
+      </div>
+
+      <div class="workspace-switcher">
+        <label for="roleSelect">Workspace</label>
+        <select id="roleSelect" aria-label="Switch workspace role">
+          <option value="preparer">Jordan Lee · Preparer</option>
+          <option value="reviewer">Alex Morgan · Reviewer</option>
+          <option value="client">Maya Patel · Client</option>
+        </select>
+        <p id="workspaceHint">Firm workspace · Northstar Tax</p>
+      </div>
+
+      <nav id="primaryNav" class="primary-nav"></nav>
+
+      <div class="sidebar-footer">
+        <button class="ghost-button full-width" data-action="open-command">⌘ Quick jump</button>
+        <div class="environment-badge"><span></span> Demo data</div>
+      </div>
+    </aside>
+
+    <div class="main-column">
+      <header class="topbar">
+        <div class="breadcrumb-wrap">
+          <button class="icon-button mobile-only" data-action="toggle-sidebar" aria-label="Open navigation">☰</button>
+          <div id="breadcrumbs" class="breadcrumbs"></div>
+        </div>
+        <div class="topbar-actions">
+          <button class="search-button" data-action="open-command">⌕ Search returns, docs, people</button>
+          <button class="icon-button" aria-label="Notifications">◌<span class="notification-dot"></span></button>
+          <div class="avatar" id="avatar">JL</div>
+        </div>
+      </header>
+
+      <main id="app" class="content" tabindex="-1"></main>
+    </div>
+  </div>
+
+  <dialog id="commandDialog" class="command-dialog">
+    <div class="command-header">
+      <input id="commandInput" type="search" placeholder="Jump to a return, document, task, or message…" autocomplete="off" />
+      <button class="icon-button" data-action="close-command" aria-label="Close">×</button>
+    </div>
+    <div id="commandResults" class="command-results"></div>
+  </dialog>
+
+  <dialog id="messageDialog" class="modal">
+    <form method="dialog" id="messageForm">
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">Contextual message</p>
+          <h2>Send a message</h2>
+        </div>
+        <button class="icon-button" value="cancel" aria-label="Close">×</button>
+      </div>
+      <label>Visibility
+        <select id="messageVisibility">
+          <option value="client">Client-visible</option>
+          <option value="internal">Internal firm note</option>
+        </select>
+      </label>
+      <label>Message
+        <textarea id="messageText" rows="5" required placeholder="Write a focused question or note…"></textarea>
+      </label>
+      <div class="modal-actions">
+        <button class="secondary-button" value="cancel">Cancel</button>
+        <button class="primary-button" id="sendMessageButton" value="default">Send message</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="correctionDialog" class="modal">
+    <form method="dialog" id="correctionForm">
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">Correct AI output</p>
+          <h2>Update extracted value</h2>
+        </div>
+        <button class="icon-button" value="cancel" aria-label="Close">×</button>
+      </div>
+      <label>Correct value
+        <input id="correctionValue" type="number" step="0.01" required />
+      </label>
+      <label>Reason
+        <select id="correctionReason">
+          <option>Wrong source region</option>
+          <option>OCR digit error</option>
+          <option>Tax treatment adjustment</option>
+          <option>Duplicate document</option>
+          <option>Other</option>
+        </select>
+      </label>
+      <label>Reviewer note
+        <textarea id="correctionNote" rows="3" placeholder="Optional context for the audit trail"></textarea>
+      </label>
+      <div class="callout neutral">The original AI value, evidence, and correction will remain in the audit history.</div>
+      <div class="modal-actions">
+        <button class="secondary-button" value="cancel">Cancel</button>
+        <button class="primary-button" id="saveCorrectionButton" value="default">Save correction</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
